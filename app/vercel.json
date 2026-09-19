@@ -1,0 +1,5 @@
+{
+  "crons": [
+    { "path": "/api/stage-notifier", "schedule": "0 4 * * *" }
+  ]
+}

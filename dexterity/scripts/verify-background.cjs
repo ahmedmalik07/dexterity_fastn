@@ -1,0 +1,7 @@
+// Opt-in live smoke test. Uses the signed-in Codex runtime and its normal usage limits.
+const{BackgroundJobs}=require('../electron/background-jobs.cjs'),fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+const directory=fs.mkdtempSync(path.resolve('test-results/background-live-')),key=crypto.randomBytes(32);
+const encryption={isEncryptionAvailable:()=>true,encryptString:text=>{const iv=crypto.randomBytes(12),cipher=crypto.createCipheriv('aes-256-gcm',key,iv);const data=Buffer.concat([cipher.update(text),cipher.final()]);return Buffer.concat([iv,cipher.getAuthTag(),data]);}};
+const manager=new BackgroundJobs({directory,encryption,emit:event=>{const job=event.job;if(job.status==='done'){try{const file=path.join(manager.folder(job.id),'hello.txt');assert.equal(fs.readFileSync(file,'utf8').trim(),'Dexterity background agent works.');console.log('PASS: live agent created and verified hello.txt in its own task folder.');}catch(error){console.error(error.message);process.exitCode=1;}clearTimeout(watchdog);}else if(job.status==='error'){console.error(job.result);process.exitCode=1;clearTimeout(watchdog);}}});
+const watchdog=setTimeout(()=>{manager.close();console.error('Live background test timed out.');process.exitCode=1;},180000);
+try{manager.start('Create hello.txt containing exactly Dexterity background agent works. Read it back to verify it. Do not do any other work.');}catch(error){clearTimeout(watchdog);console.error(error.message);process.exitCode=1;}

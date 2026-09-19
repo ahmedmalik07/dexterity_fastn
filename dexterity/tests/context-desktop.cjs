@@ -1,0 +1,27 @@
+const{_electron:electron}=require('@playwright/test');const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+(async()=>{
+ const env={...process.env,DEXTERITY_TEST:'1'};delete env.ELECTRON_RUN_AS_NODE;const desktop=await electron.launch({args:['.'],env});
+ try{
+  await desktop.firstWindow();let page;for(let i=0;i<100;i++){page=desktop.windows().find(p=>p.url().endsWith('/index.html'));if(page)break;await new Promise(r=>setTimeout(r,100));}
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));await page.waitForFunction(()=>typeof prefs!=='undefined'&&prefs&&typeof contextOpen==='function');
+  await page.evaluate(async()=>{prefs=await api.saveSettings({...prefs,voice:false,geminiKey:'fixture'});syncSettings();});
+  await page.locator('[data-page="context"]').click();await page.locator('#memory-add').click();await page.locator('#memory-title').fill('About Alex');await page.locator('#memory-text').fill('My name is Alex Builder. My email is alex@example.test. I prefer concise answers.');await page.locator('#memory-form button[type="submit"]').click();await page.locator('.memory-card').waitFor();
+  const vault=await page.evaluate(()=>api.context());assert.equal(vault.entries.length,1);assert.equal(vault.entries[0].enabled,true);assert.ok(!fs.readFileSync(vault.path).includes('Alex Builder'));
+  const persisted=await desktop.evaluate(({safeStorage},bytes)=>JSON.parse(safeStorage.decryptString(Buffer.from(bytes))).entries.length,[...fs.readFileSync(vault.path)]);assert.equal(persisted,1);
+  await page.locator('#memory-paste-open').click();await page.locator('#memory-paste-text').fill('# Writing style\nUse everyday words.\n<script>window.unwanted=true</script>');await page.locator('#memory-preview-paste').click();await page.locator('#memory-import-preview').waitFor();assert.equal((await page.evaluate(()=>api.context())).entries.length,1);await page.locator('#memory-import-save').click();await page.waitForFunction(()=>contextState.entries.length===2);assert.equal((await page.evaluate(()=>api.context())).entries[1].enabled,false);assert.equal(await page.evaluate(()=>window.unwanted),undefined);
+  const exported=path.join(path.dirname(vault.path),'roundtrip.json');
+  await desktop.evaluate(({dialog},file)=>{dialog.showSaveDialog=async()=>({canceled:false,filePath:file});dialog.showOpenDialog=async()=>({canceled:false,filePaths:[file]});},exported);
+  await page.locator('#memory-export-json').click();await page.waitForFunction(()=>document.getElementById('toast').textContent.includes('Context exported'));
+  const data=JSON.parse(fs.readFileSync(exported,'utf8'));assert.equal(data.entries.length,2);assert.equal(data.entries[0].enabled,undefined);assert.equal(data.encryptedGeminiKey,undefined);
+  await page.locator('#memory-import-file').click();await page.locator('#memory-import-preview').waitFor();assert.equal(await page.locator('[data-import-index]').count(),2);await page.locator('#memory-import-cancel').click();
+  await page.locator('#memory-activity').check();await page.waitForFunction(()=>contextState.rememberActivity===true);
+  await desktop.evaluate(()=>{globalThis.contextRequests=[];globalThis.fetch=async(url,o)=>{const input=JSON.parse(JSON.parse(o.body).contents[0].parts[0].text);globalThis.contextRequests.push(input);return{ok:true,json:async()=>({candidates:[{finishReason:'STOP',content:{parts:[{text:JSON.stringify({answer:input.personalContext.length?'Hello Alex, I will keep this concise.':'No saved context used.',status:'done',action:{type:'none',targetId:'',value:''}})}]}}]})};};});
+  await page.locator('[data-page="assistant"]').click();await page.locator('#task-screen').uncheck();await page.locator('#task-goal').fill('How should you address me?');await page.locator('#task-send').click();await page.getByText('Hello Alex, I will keep this concise.',{exact:true}).waitFor();await page.waitForFunction(()=>!taskRunning);
+  const requests=await desktop.evaluate(()=>globalThis.contextRequests);assert.equal(requests.length,1);assert.equal(requests[0].personalContext.length,1);assert.equal(requests[0].personalContext[0].title,'About Alex');assert.equal((await page.evaluate(()=>api.context())).activity.length,1);
+  await page.locator('#task-clear').click();await page.locator('#task-memory').uncheck();await page.locator('#task-goal').fill('Answer without my profile');await page.locator('#task-send').click();await page.getByText('No saved context used.',{exact:true}).waitFor();await page.waitForFunction(()=>!taskRunning);assert.equal((await desktop.evaluate(()=>globalThis.contextRequests))[1].personalContext.length,0);
+  await page.locator('[data-page="context"]').click();await page.waitForFunction(()=>contextState.activity.length===2);await page.locator('#memory-clear-activity').click();await page.waitForFunction(()=>contextState.activity.length===0);
+  fs.mkdirSync('test-results',{recursive:true});await page.evaluate(()=>window.scrollTo(0,0));await page.screenshot({path:'test-results/context-library.png',fullPage:true});
+  await page.locator('[data-page="team"]').click();await page.screenshot({path:'test-results/team-guide.png',fullPage:true});assert.deepEqual(errors,[]);
+  console.log('PASS: context UI, Windows-encrypted persistence, local import review, safe text rendering, JSON export/import dialogs, selected context in AI requests, context-off, optional activity and clear history.');
+ }finally{await desktop.close();}
+})().catch(error=>{console.error(error);process.exit(1);});

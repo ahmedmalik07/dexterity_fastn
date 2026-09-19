@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+/*
+ * HireLoop design tokens.
+ * A serious recruiting tool: deep ink, one restrained accent, generous whitespace.
+ */
+@theme {
+  --color-ink-50: #f6f7f9;
+  --color-ink-100: #eceef2;
+  --color-ink-200: #d8dce4;
+  --color-ink-300: #b4bbc9;
+  --color-ink-400: #8b95a8;
+  --color-ink-500: #6b7589;
+  --color-ink-600: #545d6e;
+  --color-ink-700: #3f4655;
+  --color-ink-800: #2a2f3a;
+  --color-ink-900: #171a21;
+  --color-ink-950: #0d0f14;
+
+  --color-accent-50: #eef4ff;
+  --color-accent-100: #dbe6fe;
+  --color-accent-500: #2f5fe0;
+  --color-accent-600: #2450c6;
+  --color-accent-700: #1d40a0;
+
+  --color-good-50: #eefbf3;
+  --color-good-600: #12805a;
+  --color-warn-50: #fff8ec;
+  --color-warn-700: #96591a;
+  --color-bad-50: #fdf1f1;
+  --color-bad-700: #a32626;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-ink-50);
+  color: var(--color-ink-900);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv05", "ss01";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tight, confident headings. */
+h1,
+h2,
+h3 {
+  letter-spacing: -0.021em;
+}
+
+/* Inputs share one look across the app. */
+.field {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-ink-200);
+  background: #fff;
+  padding: 0.7rem 0.85rem;
+  font-size: 0.95rem;
+  color: var(--color-ink-900);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.field::placeholder {
+  color: var(--color-ink-400);
+}
+.field:focus {
+  border-color: var(--color-accent-500);
+  box-shadow: 0 0 0 3px var(--color-accent-100);
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--color-ink-200);
+  border-radius: 0.75rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.925rem;
+  font-weight: 550;
+  padding: 0.65rem 1.15rem;
+  transition: background-color 0.15s, border-color 0.15s, opacity 0.15s;
+  cursor: pointer;
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.btn-primary {
+  background: var(--color-ink-900);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--color-ink-800);
+}
+.btn-accent {
+  background: var(--color-accent-600);
+  color: #fff;
+}
+.btn-accent:hover:not(:disabled) {
+  background: var(--color-accent-700);
+}
+.btn-quiet {
+  background: #fff;
+  color: var(--color-ink-700);
+  border: 1px solid var(--color-ink-200);
+}
+.btn-quiet:hover:not(:disabled) {
+  border-color: var(--color-ink-300);
+}
+
+/* Small uppercase section label. */
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink-500);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 0.28s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+}

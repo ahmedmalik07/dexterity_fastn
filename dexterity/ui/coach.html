@@ -1,0 +1,9 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'"><title>Dexterity — beside you</title><link rel="stylesheet" href="coach.css"></head>
+<body><section class="card">
+ <header><img src="cursor-mark.svg" alt=""><div><strong>dexterity</strong><span id="state">right here with you</span></div><button id="dashboard" aria-label="Open settings and workspace">↗</button><button id="close" aria-label="Close companion">×</button></header>
+ <div id="conversation" role="log" aria-live="polite"><p id="question" hidden></p><div id="answer">Hey. What are you working on?</div></div>
+ <div class="actions"><button id="point" hidden>Show me where</button><button class="primary" id="next" hidden>I did it →</button><button id="handsfree" aria-pressed="false">Hands-free</button><button id="stop" hidden>Stop</button></div>
+ <form id="followup"><label for="message" class="sr-only">Ask a follow-up</label><textarea id="message" rows="2" maxlength="4000" placeholder="Ask about what you see…"></textarea><div class="composer-bottom"><label><input id="share-screen" type="checkbox" checked> See my screen</label><button id="talk" type="button" title="Speak a question">● Talk</button><button id="send" class="primary" type="submit" aria-label="Send question">↑</button></div></form>
+ <footer><span id="provider">Mic off · Hold Ctrl to talk</span><button id="new-chat">New chat</button></footer><small id="notice" role="status"></small>
+</section><script src="coach.js"></script></body></html>

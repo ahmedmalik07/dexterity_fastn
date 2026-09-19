@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "fastn": {
+      "type": "http",
+      "url": "https://mcp.live.fastn.ai/shttp"
+    }
+  }
+}

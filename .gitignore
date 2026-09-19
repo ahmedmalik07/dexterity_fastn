@@ -1,0 +1,15 @@
+.env*
+!.env.example
+node_modules/
+.next/
+.vercel/
+.demo/
+*.log
+*.tsbuildinfo
+.claude/
+
+# Bundled demo credential from the Dexterity copy — must never reach a public repo
+dexterity/electron/bundled-key.cjs
+
+# local scratch
+.freebuff/

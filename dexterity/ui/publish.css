@@ -1,0 +1,158 @@
+/* Publish module — one role, every platform. */
+
+.publish-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  align-items: start;
+}
+
+@media (max-width: 1100px) {
+  .publish-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.publish-panel {
+  background: #fff;
+  border: 1px solid rgba(20, 24, 40, 0.1);
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 18px;
+}
+
+.publish-panel label {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.publish-panel textarea {
+  width: 100%;
+  border: 1px solid rgba(20, 24, 40, 0.16);
+  border-radius: 10px;
+  padding: 12px;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.55;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.publish-panel textarea:focus {
+  outline: none;
+  border-color: #4f6ef7;
+  box-shadow: 0 0 0 3px rgba(79, 110, 247, 0.16);
+}
+
+.publish-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.publish-note {
+  font-size: 12.5px;
+  color: #6b7280;
+  margin: 10px 0 0;
+}
+
+.publish-note[data-tone="ok"] {
+  color: #12805a;
+}
+
+.publish-note[data-tone="warn"] {
+  color: #a32626;
+}
+
+.platform-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 4px 0 12px;
+}
+
+.platform-tab {
+  border: 0;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  background: rgba(20, 24, 40, 0.06);
+  color: #3f4655;
+  cursor: pointer;
+}
+
+.platform-tab.active {
+  background: #171a21;
+  color: #fff;
+}
+
+.channel-list {
+  display: grid;
+  gap: 2px;
+  margin-top: 10px;
+}
+
+.channel-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(20, 24, 40, 0.07);
+}
+
+.channel-row strong {
+  text-transform: capitalize;
+  font-size: 14px;
+}
+
+.channel-state {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.channel-state.ok {
+  background: #eefbf3;
+  color: #12805a;
+}
+
+.channel-state.manual {
+  background: rgba(20, 24, 40, 0.07);
+  color: #3f4655;
+}
+
+.channel-state.failed {
+  background: #fff8ec;
+  color: #96591a;
+}
+
+.copy-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.copy-button {
+  font-size: 13px;
+}
+
+a.apply-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: #171a21;
+  color: #fff;
+  text-decoration: none;
+}

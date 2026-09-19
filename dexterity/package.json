@@ -1,0 +1,68 @@
+{
+  "name": "dexterity",
+  "version": "1.9.0",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "postinstall": "node scripts/prepare-voice.cjs",
+    "predist": "node scripts/prepare-voice.cjs",
+    "start": "node electron/start.cjs",
+    "test": "node --test tests/core.test.cjs tests/providers.test.cjs tests/transcription.test.cjs tests/agent.test.cjs tests/context.test.cjs tests/router.test.cjs tests/meter.test.cjs tests/conversation.test.cjs tests/background-jobs.test.cjs tests/voice-conversation.test.cjs tests/history-files.test.cjs",
+    "test:companion": "node tests/companion.cjs",
+    "test:voice": "node tests/voice-endpoint.cjs",
+    "test:coach": "node tests/coach.cjs",
+    "test:context": "node tests/context-desktop.cjs",
+    "test:tasks": "node tests/tasks.cjs",
+    "test:desktop": "node tests/desktop.cjs",
+    "dist": "electron-builder --win portable",
+    "dist:signed": "npm run predist && electron-builder --win portable -c.forceCodeSigning=true",
+    "test:native": "powershell.exe -NoProfile -ExecutionPolicy RemoteSigned -File native/Start-Dexterity.ps1 -SelfTest",
+    "test:forms": "node tests/forms.cjs",
+    "build:assets": "node scripts/assets.cjs"
+  },
+  "keywords": [],
+  "author": "Dexterity",
+  "license": "ISC",
+  "description": "Your screen-aware Windows companion",
+  "productName": "Dexterity",
+  "build": {
+    "appId": "app.dexterity.desktop",
+    "files": [
+      "electron/**/*",
+      "ui/**/*",
+      "package.json",
+      "LICENSE",
+      "THIRD_PARTY_NOTICES.md",
+      "third-party-licenses/**/*"
+    ],
+    "directories": {
+      "output": "release-v1.9"
+    },
+    "extraResources": [
+      {
+        "from": "native",
+        "to": "native",
+        "filter": [
+          "Dexterity.Native.cs",
+          "Start-Dexterity.ps1"
+        ]
+      }
+    ],
+    "electronDist": "node_modules/electron/dist",
+    "compression": "normal",
+    "win": {
+      "target": "portable",
+      "icon": "ui/icon.ico",
+      "signExecutable": true
+    },
+    "portable": {
+      "artifactName": "Dexterity-${version}.exe"
+    }
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@ricky0123/vad-web": "0.0.30",
+    "electron": "^44.3.0",
+    "electron-builder": "^26.15.3",
+    "onnxruntime-web": "1.22.0"
+  }
+}
