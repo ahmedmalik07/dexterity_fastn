@@ -1,6 +1,6 @@
 // The companion is the product entry point. Legacy automation stays out of this flow.
 document.querySelector('.version').textContent='DESKTOP v1.9';
-document.querySelectorAll('nav .nav').forEach(el=>{el.hidden=!['publish','context','settings'].includes(el.dataset.page);});
+document.querySelectorAll('nav .nav').forEach(el=>{el.hidden=!['assistant','guide','forms','publish','context','settings'].includes(el.dataset.page);});
 const companionNav=document.createElement('button');companionNav.className='nav';companionNav.dataset.page='companion-home';companionNav.textContent='✦   Your companion';document.querySelector('nav').prepend(companionNav);
 document.querySelector('main').insertAdjacentHTML('afterbegin',`<section id="companion-home" class="page">
  <div class="companion-intro"><div class="eyebrow">A LITTLE COMPANY. A LOT OF POSSIBILITY.</div><h1>Right here.<br>With you.</h1><p>Talk about what’s on your screen.<br>Get unstuck, learn a tool, follow a thought.</p><div class="companion-character"><img src="cursor-mark.svg" alt="Dexterity"><span>what are we making today?</span></div></div>

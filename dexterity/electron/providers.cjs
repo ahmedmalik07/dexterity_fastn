@@ -9,6 +9,9 @@ function usageOf(response){
 }
 const DEFAULT_MODEL = 'gpt-5.4-mini';
 const GEMINI_MODEL = 'gemini-2.5-flash';
+// Gemini's free tier limits requests per minute PER MODEL, so two questions asked back to
+// back fail on the second. Each model has its own budget: spread retries across them.
+const GEMINI_FALLBACKS = ['gemini-2.5-flash-lite','gemini-3.5-flash-lite','gemini-flash-lite-latest'];
 const ROUTER_MODEL='google/gemini-2.5-pro';
 // If the chosen model is unavailable or rate limited, OpenRouter routes to the next one in this list.
 const ROUTER_FALLBACKS=['google/gemini-2.5-flash','google/gemini-2.5-flash-lite'];
@@ -45,13 +48,24 @@ async function gemini(settings, question, image, fetcher, spec) {
  if (!match && !(spec && !image)) throw new ProviderError('Capture a fresh screen before asking.');
  const body = { systemInstruction:{parts:[{text:spec?.instructions||instructions}]}, contents:[{role:'user',parts:[{text:question},...(match?[{inline_data:{mime_type:match[1],data:match[2]}}]:[])]}],
   generationConfig:{responseMimeType:'application/json',responseJsonSchema:spec?.schema||schema,maxOutputTokens:2600,thinkingConfig:{thinkingBudget:512},...(spec?{temperature:0.1}:{})} };
- const response = await request(fetcher, `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`, {method:'POST',signal:spec?.signal,headers:{'Content-Type':'application/json','x-goog-api-key':settings.geminiKey},body:JSON.stringify(body)}, 'Gemini');
+ let response, lastError, usedModel=GEMINI_MODEL;
+ for(const model of [GEMINI_MODEL,...GEMINI_FALLBACKS]){
+  try{
+   response = await request(fetcher, `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {method:'POST',signal:spec?.signal,headers:{'Content-Type':'application/json','x-goog-api-key':settings.geminiKey},body:JSON.stringify(body)}, 'Gemini');
+   usedModel=model;lastError=null;break;
+  }catch(error){
+   lastError=error;
+   // Only a rate limit or an unavailable model is worth another model; a bad key is not.
+   if(spec?.signal?.aborted||!/quota or rate limit|request failed \((?:404|500|502|503|504)\)/.test(error.message))throw error;
+  }
+ }
+ if(lastError)throw lastError;
  const candidate = response.candidates?.[0];
  if (response.promptFeedback?.blockReason || (candidate?.finishReason && !['STOP','MAX_TOKENS'].includes(candidate.finishReason))) throw new ProviderError('Gemini could not help with this request. Try a different question.');
  if (candidate?.finishReason === 'MAX_TOKENS') throw new ProviderError('Gemini’s answer was incomplete. Please retry with a shorter question.');
  const text = (candidate?.content?.parts || []).filter(p => !p.thought && typeof p.text === 'string').map(p => p.text).join('');
  const guide = spec?JSON.parse(text):parseGuide({output:[{content:[{type:'output_text',text}]}]});
- return { ...guide, provider:'Gemini', model:GEMINI_MODEL, usage:usageOf(response) };
+ return { ...guide, provider:'Gemini', model:usedModel, usage:usageOf(response) };
 }
 async function analyzeWithFallback(settings, question, image, fetcher = globalThis.fetch) {
  if(settings.routerKey)return openrouter(settings,question,image,fetcher);
