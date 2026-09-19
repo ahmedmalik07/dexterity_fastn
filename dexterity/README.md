@@ -12,7 +12,7 @@ Connect OpenRouter, OpenAI, or Gemini in **Settings**. Automatic cloud voice use
 
 - **Talk:** click the cursor companion or hold Ctrl for three seconds. Speak, then pause. The reply appears beside the cursor without opening the dashboard.
 - **Type:** choose **Type instead**. Ask and follow up in the floating card. Enter sends; Shift+Enter adds a line.
-- **Hands-free:** choose **Hands-free** in the floating card. With cloud voice connected, Dexterity listens again after each reply finishes. **End hands-free**, Cancel, or Escape ends the session. Sessions end after ten minutes and individual recordings are limited to 45 seconds. This is turn-based voice; it does not listen while speaking.
+- **Hands-free:** choose **Hands-free** in the floating card. With cloud voice connected, Dexterity listens again after each reply finishes. **End hands-free**, Cancel, or Escape ends the session. Sessions end after ten minutes and individual recordings are limited to 15 seconds. This is turn-based voice; it does not listen while speaking.
 - **Conversations:** optionally enable **Remember conversations on this PC**, then continue or delete saved chats from this page. **New chat** starts a separate conversation.
 - **Learn:** ask “Teach me how to use this app” or “Where is this setting?” A visual marker can identify a visible target. **I did it** captures the updated screen and continues the original lesson.
 - **General conversation:** turn off **See my screen** in the floating card.
@@ -31,7 +31,7 @@ Runtime integration follows [Codex non-interactive mode](https://developers.open
 
 ## Data and limitations
 
-Screen conversations send the requested screenshot, visible accessibility text, selected text, recent conversation, and enabled relevant memories to the configured AI. Screenshots are kept in memory. Cloud voice sends the activated recording after recording stops. Recordings have a 45-second limit. Hands-free mode starts another recording after the reply, until you stop it or the ten-minute session expires.
+Screen conversations send the requested screenshot, visible accessibility text, selected text, recent conversation, and enabled relevant memories to the configured AI. Screenshots are kept in memory. Cloud voice sends the activated recording after recording stops. Recordings have a 15-second limit. Hands-free mode starts another recording after the reply, until you stop it or the ten-minute session expires.
 
 API keys and saved personal context use Electron safeStorage / Windows encryption. Background task requests and results are encrypted in `jobs.vault`; generated files are ordinary local files in the task folder. The Codex runtime also follows its own session-storage settings. Screen conversations use the latest six exchanges as context. Optional saved history keeps up to 50 chats with 100 turns each in encrypted `conversations.vault`, without screenshots or audio. Turning saving off stops new saves; existing chats remain until deleted. **New chat** clears the active context.
 

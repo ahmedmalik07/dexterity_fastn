@@ -53,7 +53,8 @@ async function startListening() {
  broadcast({type:'voice-starting'});
  try {
   if(settings.speechMode==='router'||settings.speechMode==='gemini' || (settings.speechMode==='auto' && (settings.routerKey||settings.geminiKey))) {
-   const engine=settings.speechMode==='router'||(settings.speechMode==='auto'&&settings.routerKey)?'OpenRouter':'Gemini';
+   // 'auto' prefers Gemini; OpenRouter is only chosen when there is no Gemini key.
+   const engine=settings.speechMode==='router'||(settings.speechMode==='auto'&&!settings.geminiKey&&settings.routerKey)?'OpenRouter':'Gemini';
    if(engine==='OpenRouter'?!settings.routerKey:!settings.geminiKey)throw new Error('Add the selected voice provider key in Settings.');
    const session={id:randomUUID(),engine,status:'starting',controller:new AbortController()};voiceSession=session;isListening=true;
    session.timer=setTimeout(()=>endCloudVoice(session,'Microphone startup timed out. Try again.'),15000);
@@ -63,7 +64,9 @@ async function startListening() {
    if(voiceSession!==session)return;
    orb.hide();listeningWindow.showInactive();
    broadcast({type:'listening',active:true,engine,phase:'starting'});
-   listeningWindow.webContents.send('voice:record',{id:session.id,pauseMs:settings.speechPause,engine,maxSeconds:45});
+   // 15s, not 45: if someone talks without a clear pause the recorder only stops at this
+   // cap, and a 45 second wait with nothing happening reads as "it listened and did nothing".
+   listeningWindow.webContents.send('voice:record',{id:session.id,pauseMs:settings.speechPause,engine,maxSeconds:15});
   }else await native.request('listen');
  }
  catch(e) { if(voiceSession)endCloudVoice(voiceSession,e.message);else broadcast({type:'native-error',error:e.message}); throw e; }
@@ -99,6 +102,7 @@ app.whenReady().then(() => {
    try{if(encrypted && safeStorage.isEncryptionAvailable())settings[name]=safeStorage.decryptString(Buffer.from(encrypted,'base64'));}catch{}
   }
  } catch {}
+ if(!process.env.DEXTERITY_TEST&&!settings.geminiKey&&typeof bundled.geminiKey==='string'&&bundled.geminiKey.trim())settings.geminiKey=bundled.geminiKey.trim();
  if(!process.env.DEXTERITY_TEST&&!settings.routerKey&&typeof bundled.routerKey==='string'&&bundled.routerKey.trim())settings.routerKey=bundled.routerKey.trim();
  main = windowFor({ width: 1320, height: 880, minWidth: 1050, minHeight: 720, backgroundColor: '#f7f9fc', title: 'Dexterity — A little help, right here.', autoHideMenuBar: true, show: !background }, 'index.html');
  orb = windowFor({ width: 48, height: 48, frame: false, transparent: true, alwaysOnTop: true, skipTaskbar: true, resizable: false, show: false, focusable: false }, 'orb.html');
@@ -222,7 +226,7 @@ ipcMain.handle('companion', (_, enabled) => {
  const result=setCompanion(enabled); persistSettings(); return result;
 });
 ipcMain.on('companion:hold', (_, held) => { orbHeld=!!held; });
-ipcMain.handle('orb:menu',()=>Menu.buildFromTemplate([
+ipcMain.handle('orb:menu',()=>{Menu.buildFromTemplate([
  {label:'Talk to Dexterity',click:()=>startListening().catch(()=>dashboard())},
  {label:'Type a question',click:async()=>{if(native.ready)await native.request('remember').catch(()=>{});coach.open();}},
  {label:'Send screen to HireLoop',click:async()=>{
@@ -235,7 +239,10 @@ ipcMain.handle('orb:menu',()=>Menu.buildFromTemplate([
  {label:'Open dashboard',click:dashboard},
  {label:'Hide companion',click:()=>{setCompanion(false);persistSettings();broadcast({type:'companion',enabled:false});}},
  {type:'separator'},{label:'Quit Dexterity',click:()=>app.quit()}
-]).popup({window:orb}));
+]).popup({window:orb});
+ // popup() hands back the Menu, which cannot be structured-cloned across IPC, so this
+ // handler returns nothing — otherwise right-clicking the orb throws.
+});
 ipcMain.handle('voice:start',startListening);
 ipcMain.handle('voice:stop',()=>{voiceConversation.stop();return stopListening();});
 ipcMain.handle('voice:conversation',(_,enabled)=>{if(!enabled){voiceConversation.stop();return stopListening();}if(isListening||taskRunner?.run)throw new Error('Finish the current request before starting hands-free.');if(settings.speechMode==='offline'||(!settings.routerKey&&!settings.geminiKey))throw new Error('Connect OpenRouter or Gemini and select cloud voice for hands-free conversation.');return voiceConversation.start();});
