@@ -13,3 +13,6 @@ dexterity/electron/bundled-key.cjs
 
 # local scratch
 .freebuff/
+
+# electron-builder output
+dexterity/release-*/

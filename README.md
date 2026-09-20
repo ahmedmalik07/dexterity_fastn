@@ -1,4 +1,35 @@
-# Dexterity — the assistant that works where you already are
+# HireLoop — post once, hire anywhere
+
+**Live: https://hireloop-lilac.vercel.app** · [Download the desktop companion](https://github.com/ahmedmalik07/dexterity_fastn/releases/tag/v1.9.0)
+
+## For judges — 90 seconds, nothing to install
+
+1. Open **https://hireloop-lilac.vercel.app/compose**
+2. Type one line: `Junior React dev, Islamabad, onsite, up to 80k`
+3. **Generate** → you get a full job description and a version for LinkedIn, X,
+   Facebook, WhatsApp and Discord, each carrying the same apply link with its own
+   source tag
+4. **Publish** → the hiring board row is created through Fastn and a QR code appears
+5. **Scan the QR with your phone** and apply with any PDF CV
+6. Your CV is read and scored against the role, and you appear on the board:
+   [hiring board](https://notion.so/3e06f9d69b1c818e924de84e08197512)
+7. Open **Stats → Watch the board**, then move a card in Notion — that candidate
+   is emailed within seconds
+
+Every outbound action — the hiring board, the emails, the alerts — goes through
+**Fastn** connectors. The app holds no Notion, Slack or email credentials of its own.
+
+### What will not work, and why
+
+| | |
+|---|---|
+| LinkedIn / X posting | Fastn has no connector for either, and we have no developer tokens for them. Both come back written and ready to paste. |
+| Facebook / WhatsApp groups | Meta closed the Groups API and WhatsApp has never had one. No tool can post there. |
+| The confirmation email | The Resend account is unverified, so it only reaches the account owner's address until a domain is added. |
+
+We would rather show you this table than a demo that quietly fakes those steps.
+
+---
 
 A Windows companion that sees your screen and helps without you leaving what you are
 doing. No screenshotting your work into Claude, Cursor or ChatGPT and retyping the
