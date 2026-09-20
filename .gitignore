@@ -16,3 +16,10 @@ dexterity/electron/bundled-key.cjs
 
 # electron-builder output
 dexterity/release-*/
+
+# PDF build intermediates
+.cover.html
+.body.html
+.cover.pdf
+.body.pdf
+docs/.documentation.html
