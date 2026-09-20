@@ -13,7 +13,7 @@ const fs = require('node:fs');
    await new Promise(resolve => setTimeout(resolve, 100));
   }
   assert.ok(page, 'Dashboard window opened');
-  await page.locator('[data-page="home"]').click();await page.waitForSelector('#start');
+  await page.locator('[data-page="companion-home"]').click();await page.waitForSelector('#home-talk');
   const errors = []; page.on('pageerror', e => errors.push(e.message));
   assert.equal(await page.title(),'Dexterity');
   assert.ok(!(await page.locator('body').innerText()).toLowerCase().includes('notebook'));
@@ -49,9 +49,9 @@ const fs = require('node:fs');
   await app.evaluate(()=>{globalThis.fetch=async url=>url.includes('openai.com')?{ok:false,status:429}:{ok:true,json:async()=>({candidates:[{finishReason:'STOP',content:{parts:[{text:JSON.stringify({summary:'Gemini fallback fixture',steps:[]})}]}}]})};});
   await page.locator('[data-page="guide"]').click();await page.locator('#ask').click();await page.getByText('Gemini fallback fixture').waitFor();
   assert.match(await page.locator('#answer-tag').innerText(),/Gemini.*BACKUP/);
-  await page.locator('[data-page="history"]').click();assert.equal(await page.locator('.history-item').count(),2);await page.locator('[data-page="guide"]').click();
+  await page.locator('[data-page="conversations"]').click();assert.equal(await page.locator('.history-item').count(),2);await page.locator('[data-page="guide"]').click();
   await page.locator('#clear').click(); assert.equal(await page.locator('#screenshot').isVisible(), false);
-  await page.locator('[data-page="home"]').click(); const companionBefore=await page.locator('#companion').getAttribute('aria-pressed'); await page.locator('#companion').click(); assert.notEqual(await page.locator('#companion').getAttribute('aria-pressed'), companionBefore); await page.locator('#companion').click();
+  await page.locator('[data-page="companion-home"]').click(); const companionBefore=await page.locator('#home-companion').getAttribute('aria-pressed'); await page.locator('#home-companion').click(); assert.notEqual(await page.locator('#home-companion').getAttribute('aria-pressed'), companionBefore); await page.locator('#home-companion').click();
   // Playbook, the voice review step and the cost meter are part of the shipped flow, so they are exercised here.
   await page.locator('#playbook-nav').click(); await page.locator('#playbook').waitFor({ state: 'visible' });
   assert.ok(await page.locator('.playbook-row').count() >= 15, 'playbook lists the everyday phrasings');
@@ -77,7 +77,7 @@ const fs = require('node:fs');
   assert.equal(voicePrefs.speechVocabulary, 'IRIS, NADRA, Islamabad'); assert.equal(voicePrefs.voiceReview, true);
   await page.locator('#voice-review').uncheck(); await page.getByRole('button', { name: 'Save preferences' }).click();
   assert.equal((await page.evaluate(() => window.dexterity.settings())).voiceReview, false, 'hands-free voice is the default and stays switchable');
-  await page.locator('[data-page="home"]').click();
+  await page.locator('[data-page="companion-home"]').click();
   fs.mkdirSync('test-results', { recursive: true }); await page.evaluate(() => { document.getElementById('toast').hidden = true; window.scrollTo(0, 0); }); await page.screenshot({ path: 'test-results/dashboard.png', fullPage: true });
   assert.deepEqual(errors, []); console.log('PASS: real form demo, history, defaults, capture, OpenAI fixture, Gemini fallback, encrypted key isolation, pointer, clear, companion, playbook, voice review, cost meter, action ledger and renderer.');
  } finally { await app.close(); }

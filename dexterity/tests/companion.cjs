@@ -7,7 +7,7 @@ const{_electron:electron}=require('@playwright/test'),assert=require('node:asser
   await desktop.firstWindow();let page;for(let attempt=0;attempt<200;attempt++){page=desktop.windows().find(p=>p.url().endsWith('/index.html'));if(page)break;await new Promise(r=>setTimeout(r,100));}assert.ok(page,'Dashboard loaded');
   page.setDefaultTimeout(15000);const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.waitForFunction(()=>typeof prefs!=='undefined'&&prefs);
-  assert.equal(await page.locator('#companion-home').isVisible(),true);assert.equal(await page.locator('#forms-nav').isVisible(),false);
+  assert.equal(await page.locator('#companion-home').isVisible(),true);assert.equal(await page.locator('#forms-nav').isVisible(),true);
   await page.locator('[data-page="conversations"]').click();await page.locator('#remember-chats').check();await page.locator('[data-page="companion-home"]').click();
   await page.evaluate(async()=>{prefs=await api.saveSettings({...prefs,voice:false,routerKey:'fixture'});});
   await desktop.evaluate(()=>{globalThis.companionRequests=[];globalThis.voiceRequests=0;globalThis.fetch=async(url,o)=>{

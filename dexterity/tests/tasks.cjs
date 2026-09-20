@@ -25,7 +25,7 @@ const{_electron:electron}=require('@playwright/test');const assert=require('node
    }
    return{ok:true,json:async()=>({candidates:[{finishReason:'STOP',content:{parts:[{text:JSON.stringify(result)}]}}]})};
   };});
-  await page.locator('#task-screen').uncheck();await page.locator('#task-goal').fill('What does ubiquitous mean?');await page.locator('#task-send').click();
+  await page.locator('#assistant-nav').click();await page.locator('#task-screen').uncheck();await page.locator('#task-goal').fill('What does ubiquitous mean?');await page.locator('#task-send').click();
   await page.getByText('Ubiquitous means present or found everywhere.',{exact:true}).waitFor();await page.waitForFunction(()=>!taskRunning);
   await page.locator('#task-goal').fill('Use it in a sentence');await page.locator('#task-send').click();await page.getByText('Example: Smartphones are ubiquitous today.',{exact:true}).waitFor();await page.waitForFunction(()=>!taskRunning);
   console.log('PASS: general meanings without screen, direct answers and follow-up context.');
