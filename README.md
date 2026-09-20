@@ -2,7 +2,7 @@
 
 **Live: https://hireloop-lilac.vercel.app** · [Download the desktop companion](https://github.com/ahmedmalik07/dexterity_fastn/releases/tag/v1.9.0)
 
-**[Read the full walkthrough, with screenshots →](DOCUMENTATION.md)** · Team **vibe**: Madni Munnay, Ahmed Malik, Maimoona Islam
+**[Read the full walkthrough, with screenshots →](DOCUMENTATION.md)** · **[PDF](HireLoop-documentation.pdf)** · Team **vibe**: Madni Munnay, Ahmed Malik, Maimoona Islam
 
 ## For judges — 90 seconds, nothing to install
 

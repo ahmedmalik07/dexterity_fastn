@@ -63,6 +63,7 @@
     "@ricky0123/vad-web": "0.0.30",
     "electron": "^44.3.0",
     "electron-builder": "^26.15.3",
+    "marked": "^18.0.13",
     "onnxruntime-web": "1.22.0"
   }
 }

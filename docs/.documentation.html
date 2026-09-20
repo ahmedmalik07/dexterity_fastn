@@ -1,0 +1,452 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+  @page { size: A4; margin: 16mm 14mm 18mm; }
+  @page :first { margin: 0; }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", -apple-system, system-ui, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.62;
+    color: #1b2030;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* --- cover --- */
+  .cover {
+    height: 297mm;
+    padding: 34mm 22mm;
+    background: linear-gradient(150deg, #10131c 0%, #1d2740 55%, #2c3f6b 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    page-break-after: always;
+  }
+  .cover-kicker {
+    font-size: 9pt; letter-spacing: .16em; text-transform: uppercase;
+    color: #9fb4e6; margin-bottom: 14mm;
+  }
+  .cover-title { font-size: 58pt; margin: 0; letter-spacing: -2.5px; font-weight: 700; }
+  .cover-sub { font-size: 17pt; color: #c9d6f2; margin: 3mm 0 0; font-weight: 300; }
+  .cover-team {
+    margin-top: 26mm; display: flex; flex-wrap: wrap; gap: 5mm 8mm; align-items: baseline;
+    font-size: 11.5pt; color: #eaf0ff;
+  }
+  .cover-team-label {
+    font-size: 8.5pt; letter-spacing: .16em; text-transform: uppercase; color: #8fa6dd;
+    width: 100%;
+  }
+  .cover-links {
+    margin-top: auto; font-size: 9pt; color: #8fa6dd; border-top: 1px solid #ffffff22;
+    padding-top: 5mm;
+  }
+
+  /* --- headings --- */
+  h1, h2, h3 { letter-spacing: -.02em; line-height: 1.25; }
+  h1 { font-size: 21pt; margin: 0 0 4mm; }
+  h2 {
+    font-size: 15pt; margin: 11mm 0 3mm; padding-bottom: 2mm;
+    border-bottom: 1.5px solid #e3e8f2; page-break-after: avoid;
+  }
+  h3 { font-size: 12pt; margin: 7mm 0 2mm; page-break-after: avoid; }
+  p { margin: 0 0 3.2mm; }
+  strong { color: #111827; }
+
+  /* --- images --- */
+  img {
+    max-width: 100%; display: block; margin: 5mm auto 3mm;
+    border: 1px solid #dfe4ee; border-radius: 6px;
+  }
+  /* Tall mobile screenshots must not eat a whole page. */
+  img[src*="mobile"] { max-width: 58mm; }
+  img[src*="landing"], img[src*="capture"], img[src*="empty"] { max-width: 150mm; }
+
+  /* --- tables --- */
+  table {
+    width: 100%; border-collapse: collapse; margin: 4mm 0 5mm;
+    font-size: 9.2pt; page-break-inside: avoid;
+  }
+  th {
+    text-align: left; background: #f3f6fb; border-bottom: 1.5px solid #dbe2ee;
+    padding: 2.4mm 3mm; font-weight: 600; color: #35405a;
+  }
+  td { padding: 2.4mm 3mm; border-bottom: 1px solid #eef1f7; vertical-align: top; }
+  tr:last-child td { border-bottom: 0; }
+
+  /* --- code --- */
+  code {
+    font-family: "Cascadia Mono", Consolas, monospace; font-size: 8.8pt;
+    background: #f1f4fa; padding: .4mm 1.4mm; border-radius: 3px; color: #1f3b73;
+  }
+  pre {
+    background: #131722; color: #e8edf8; padding: 4mm 5mm; border-radius: 6px;
+    font-size: 8.4pt; line-height: 1.5; overflow: hidden; white-space: pre-wrap;
+    word-break: break-word; page-break-inside: avoid; margin: 3mm 0 5mm;
+  }
+  pre code { background: none; color: inherit; padding: 0; font-size: inherit; }
+
+  blockquote {
+    margin: 5mm 0; padding: 3.5mm 5mm; background: #eef3ff;
+    border-left: 3px solid #3b62c4; border-radius: 0 5px 5px 0;
+    font-size: 11pt; color: #1c2f5c;
+  }
+  blockquote p { margin: 0; }
+
+  hr { border: 0; border-top: 1px solid #e3e8f2; margin: 8mm 0; }
+  ul, ol { margin: 0 0 3.5mm; padding-left: 5.5mm; }
+  li { margin-bottom: 1.4mm; }
+  a { color: #2450b8; text-decoration: none; }
+
+  h2, h3 { page-break-after: avoid; }
+  img, pre, blockquote { page-break-inside: avoid; }
+</style></head><body>
+<section class="cover">
+  <div class="cover-kicker">Build with Fastn · Track 04 · Cross-Platform Publisher</div>
+  <h1 class="cover-title">HireLoop</h1>
+  <p class="cover-sub">Post once, hire anywhere.</p>
+  <div class="cover-team">
+    <span class="cover-team-label">Team vibe</span>
+    <span>Madni Munnay</span><span>Ahmed Malik</span><span>Maimoona Islam</span>
+  </div>
+  <div class="cover-links">
+    hireloop-lilac.vercel.app &nbsp;·&nbsp; github.com/ahmedmalik07/dexterity_fastn
+  </div>
+</section>
+<main><h1>HireLoop — post once, hire anywhere</h1>
+<p><strong>Team vibe</strong> · Madni Munnay · Ahmed Malik · Maimoona Islam
+Built for the <em>Build with Fastn</em> hackathon · Track 04, Cross-Platform Publisher</p>
+<p><strong>Live: <a href="https://hireloop-lilac.vercel.app">https://hireloop-lilac.vercel.app</a></strong> · <a href="https://github.com/ahmedmalik07/dexterity_fastn/releases/tag/v1.9.0">Desktop companion</a> · <a href="https://github.com/ahmedmalik07/dexterity_fastn">Source</a></p>
+<hr>
+<p><img src="docs/images/web-landing.png" alt="HireLoop"></p>
+<h2>The problem, from a real office</h2>
+<p>An HR person in Islamabad opens a job. Then they write it five times — once for
+LinkedIn, once for a Facebook group, once for WhatsApp, once for X, once for a Discord
+server. Five different tones, five different lengths.</p>
+<p>Then the CVs arrive: some by email, some as WhatsApp attachments, some as a comment under
+the Facebook post, some as a LinkedIn DM. Nobody knows which channel produced the good
+ones. And most applicants never hear anything at all.</p>
+<p>That last part is the one that stings. <strong>Not rejection — silence.</strong></p>
+<p>HireLoop fixes all three: write once, collect everywhere, and answer everyone.</p>
+<hr>
+<h2>1. One line in</h2>
+<p>You type the role the way you&#39;d say it out loud.</p>
+<p><img src="docs/images/web-compose-empty.png" alt="The compose screen before anything is typed"></p>
+<p>That&#39;s the whole input. <code>Junior React dev, Islamabad, onsite, up to 80k</code>.</p>
+<h2>2. A real job post out — five ways</h2>
+<p>Eight seconds later there&#39;s a full job description <em>and</em> a version written for each
+platform. Not the same text pasted five times: LinkedIn gets a professional tone,
+Facebook gets Roman Urdu mixed with English because that&#39;s how Pakistani job groups
+actually talk, WhatsApp gets something short enough to forward.</p>
+<p><img src="docs/images/web-compose-generated.png" alt="The generated job description and the per-platform tabs"></p>
+<p>Every version carries the same apply link with a <strong>different <code>src</code> tag</strong> — so when a CV
+arrives, the pipeline already knows which channel it came from. That&#39;s the whole trick
+behind the analytics later.</p>
+<h2>3. Publish, and be honest about it</h2>
+<p><img src="docs/images/web-publish-result.png" alt="The publish result, with the QR code and per-channel status"></p>
+<p>Look at the <strong>Channels</strong> list — this is the part we&#39;re most proud of, and it&#39;s the part
+most demos would hide.</p>
+<table>
+<thead>
+<tr>
+<th>Channel</th>
+<th>What really happens</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Notion</strong></td>
+<td>Posted through Fastn. A real row on the hiring board.</td>
+</tr>
+<tr>
+<td><strong>Slack</strong></td>
+<td>Posted through Fastn when the token has <code>chat:write</code>.</td>
+</tr>
+<tr>
+<td><strong>LinkedIn, X</strong></td>
+<td><strong>Not posted.</strong> Fastn has no connector for either, and we have no developer tokens. The text comes back written, one tap to copy.</td>
+</tr>
+<tr>
+<td><strong>Facebook, WhatsApp</strong></td>
+<td><strong>Nobody can post here.</strong> Meta closed the Groups API; WhatsApp never had one.</td>
+</tr>
+</tbody></table>
+<p>We could have faked those last two rows. We&#39;d rather show you the table.</p>
+<p>And that big QR code? That&#39;s the demo. Point a phone at it.</p>
+<h2>4. Applying, from a phone, in under a minute</h2>
+<p><img src="docs/images/web-apply-mobile.png" alt="The application page on a phone"></p>
+<p>Name, email, phone, CV, consent. That&#39;s it. The page is built mobile-first because
+that&#39;s how people actually apply here — standing in a queue, on a phone, on patchy data.</p>
+<p>Behind the scenes, in the seconds after they hit submit:</p>
+<ol>
+<li>The CV is stored</li>
+<li>The PDF text is extracted — and if it&#39;s a scanned image with no text, it says so
+rather than crashing</li>
+<li>The CV is scored against <em>this job&#39;s</em> must-haves</li>
+<li>A card appears on the hiring board</li>
+<li>The applicant gets an email saying we&#39;ve got it</li>
+</ol>
+<p>The applicant never sees their score. That&#39;s for the hiring team.</p>
+<h2>5. The scoring, and what we told it not to do</h2>
+<p>The scorer is given explicit instructions to <strong>ignore name, gender, age, photo, religion,
+marital status, university prestige and city of origin</strong>, and to credit a skill only when
+the CV shows evidence of it — a job, a project, a repo.</p>
+<p>Real output from the five test CVs against &quot;Junior React Developer&quot;:</p>
+<table>
+<thead>
+<tr>
+<th>Candidate</th>
+<th>Score</th>
+<th>Verdict</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2 years React, Next.js, TypeScript</td>
+<td><strong>95</strong></td>
+<td>Strong</td>
+<td>Production React, performance work, real projects</td>
+</tr>
+<tr>
+<td>React Native + web, portfolio</td>
+<td><strong>90</strong></td>
+<td>Strong</td>
+<td>Shared TypeScript layer across app and web</td>
+</tr>
+<tr>
+<td>Strong HTML/CSS/JS, little React</td>
+<td><strong>60</strong></td>
+<td>Maybe</td>
+<td>Solid fundamentals, no practical React yet</td>
+</tr>
+<tr>
+<td>4 years Java / Spring Boot</td>
+<td><strong>15</strong></td>
+<td>Weak</td>
+<td>Experienced — but no frontend for this role</td>
+</tr>
+<tr>
+<td>Scanned, image-only PDF</td>
+<td><strong>0</strong></td>
+<td>Maybe</td>
+<td><em>&quot;CV could not be read, review manually&quot;</em></td>
+</tr>
+</tbody></table>
+<p>That last row matters. A scanned CV is a <strong>human review flag</strong>, never a silent rejection.</p>
+<h2>6. Which channel actually hires for you</h2>
+<p><img src="docs/images/web-stats.png" alt="Channel performance, with the live board watcher"></p>
+<p>Applicants per channel, and the average score per channel. This answers the question no
+HR team in Pakistan can currently answer: <em>is the Facebook group worth the effort, or is
+LinkedIn carrying everything?</em></p>
+<h2>7. Nobody gets ghosted</h2>
+<p>Move a card on the Notion board and the candidate hears about it — shortlisted,
+interview, offer, or a rejection written like a person wrote it.</p>
+<p>Each stage sends <strong>exactly once</strong>. The board records what was last sent, so dragging a
+card twice doesn&#39;t email twice.</p>
+<hr>
+<h2>The channels nobody can reach</h2>
+<p>Here&#39;s the thing that makes this more than a posting tool.</p>
+<p>The channels that matter most in Pakistani hiring — WhatsApp groups, Facebook groups,
+DMs — have <strong>no API for anyone</strong>. Not for us, not for Fastn, not for a company with a
+hundred engineers. So a CV that arrives in a WhatsApp group is invisible to every
+recruiting tool on the market.</p>
+<p>Unless you just look at the screen.</p>
+<p><img src="docs/images/web-capture.png" alt="The screen-capture route"></p>
+<p>Screenshot the WhatsApp message, drop it in, and the candidate joins the same pipeline as
+everyone else. We tested it with a mock group chat and it pulled out:</p>
+<pre><code>Hira Saeed · hira.saeed@example.com · +92 333 4455667
+linkedin.com/in/hira-saeed-dev · channel: whatsapp · confidence: high
+</code></pre>
+<blockquote>
+<p><strong>Fastn connects every app that has an API. We added the ones that don&#39;t.</strong></p>
+</blockquote>
+<hr>
+<h2>The desktop companion</h2>
+<p>The web app is one way in. The other is <strong>Dexterity</strong> — a Windows companion that sits
+beside your cursor, sees your screen, and helps without you leaving what you&#39;re doing.</p>
+<p><img src="docs/images/dexterity-home.png" alt="The companion home"></p>
+<p>The point: you shouldn&#39;t have to screenshot your work into ChatGPT and retype the
+question. It&#39;s already there.</p>
+<h3>Publish a role, from inside your work</h3>
+<p><img src="docs/images/dexterity-publish-empty.png" alt="The Publish module, before anything is typed"></p>
+<p>You&#39;re in a Slack thread where the team agrees to hire someone. You don&#39;t retype
+anything — you press <strong>Read it off my screen</strong>.</p>
+<p>We gave it a real Slack hiring thread and it produced:</p>
+<pre><code>Junior React dev, Islamabad, onsite, up to 80k PKR per month
+</code></pre>
+<p>Then the same engine writes the post and every platform version:</p>
+<p><img src="docs/images/dexterity-publish-draft.png" alt="The draft, with per-platform tabs"></p>
+<p>Including the Facebook version, in the register those groups actually use:</p>
+<p><img src="docs/images/dexterity-publish-facebook.png" alt="The Facebook version in Roman Urdu"></p>
+<p>And publishing reports the same honest per-channel truth as the web app:</p>
+<p><img src="docs/images/dexterity-publish-result.png" alt="Where the post went"></p>
+<h3>It fills forms, with your own details</h3>
+<p><img src="docs/images/dexterity-forms.png" alt="The form filling screen"></p>
+<p>Point it at a form — Google Forms, a job application, an internal portal — and it reads
+the fields, fills them from your saved context, and stops.</p>
+<p>It will <strong>not</strong> submit on its own. You pick the button and tick a confirmation first. And
+it never touches a password field.</p>
+<p>We proved this against a real Chrome window with a local server capturing the result:</p>
+<pre><code>PASS: the browser window is visible to Dexterity — Google Chrome
+PASS: read the form — [&quot;Full name&quot;,&quot;Email address&quot;,&quot;Phone number&quot;]
+PASS: the password field was excluded
+PASS: filled the real page in Chrome, and nothing was submitted yet
+PASS: server received {&quot;fullname&quot;:&quot;Ahmed Malik&quot;,&quot;email&quot;:&quot;ahmed@example.test&quot;,
+                      &quot;phone&quot;:&quot;+92 300 1234567&quot;,&quot;secret&quot;:&quot;&quot;}
+</code></pre>
+<p>Note <code>secret</code> is empty. That&#39;s the password field, deliberately untouched.</p>
+<h3>It teaches, on the screen you&#39;re stuck on</h3>
+<p><img src="docs/images/dexterity-assistant.png" alt="The task and teaching surface"></p>
+<p>We gave it a DaVinci Resolve screenshot and asked real questions:</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&quot;How do I colour grade this clip?&quot;</td>
+<td>&quot;Switch to the <strong>Color</strong> page&quot; ✓</td>
+</tr>
+<tr>
+<td>&quot;Where do I change the audio level?&quot;</td>
+<td>&quot;Select the music clip, open the <strong>Inspector</strong>&quot; ✓</td>
+</tr>
+<tr>
+<td>&quot;How do I export as MP4?&quot;</td>
+<td>&quot;Switch to the <strong>Deliver</strong> page&quot; ✓</td>
+</tr>
+</tbody></table>
+<p>It can also point at where to click. Those markers are model-proposed, not pixel-perfect —
+the words are reliable, the arrow is a hint.</p>
+<hr>
+<h2>How Fastn is actually used</h2>
+<p>This is the part that matters for the track, so here it is plainly.</p>
+<p><strong>The app holds no Notion token, no email key, no Slack token.</strong> Every one of them lives
+in a Fastn connection. Our repo is public and leaks nothing.</p>
+<p>Three connectors are in play:</p>
+<table>
+<thead>
+<tr>
+<th>Connector</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>HTTP API</code> (built in)</td>
+<td>Slack and X — a bearer token is all they need</td>
+</tr>
+<tr>
+<td><code>HireLoop Notion</code> (custom)</td>
+<td>Notion also needs a <code>Notion-Version</code> header, which the generic connector can&#39;t send</td>
+</tr>
+<tr>
+<td><code>HireLoop LinkedIn</code> (custom)</td>
+<td>LinkedIn needs <code>X-Restli-Protocol-Version: 2.0.0</code></td>
+</tr>
+<tr>
+<td><code>HireLoop Email</code> (custom)</td>
+<td>Transactional email, one connection, no ambiguity</td>
+</tr>
+</tbody></table>
+<p>We built the custom ones programmatically against <code>api.fastn.dev/api/v1</code> — connector,
+auth method, actions and connection, all from code.</p>
+<h3>And then it runs without us</h3>
+<p>The stage emails aren&#39;t driven by our app at all. They&#39;re a <strong>Fastn workflow running on
+Fastn&#39;s infrastructure</strong>:</p>
+<pre><code>hireloop-stage-notifier   wf_c55a11b8f31f   */5 * * * *   Asia/Karachi
+</code></pre>
+<p>Every five minutes: read the board through a Fastn connector, email whoever moved, write
+the stage back. <strong>No browser open. No server of ours. No cron on a laptop.</strong></p>
+<p>Vercel&#39;s free plan refuses a per-minute cron. Fastn just runs it. That&#39;s the honest
+answer to what Fastn is for — <strong>it replaces the backend you&#39;d otherwise build, host and
+pay for.</strong></p>
+<p>Proof from a live run:</p>
+<pre><code>move a card to Offer  →  {&quot;sentCount&quot;:1,&quot;sent&quot;:[{&quot;name&quot;:&quot;Ahmed Malik&quot;,&quot;stage&quot;:&quot;Offer&quot;,&quot;ok&quot;:true}]}
+run it again          →  {&quot;sentCount&quot;:0}
+</code></pre>
+<p>Sent once. Never twice.</p>
+<hr>
+<h2>Two things we learned the hard way</h2>
+<p><strong>Fastn&#39;s <code>{{input.body}}</code> drops nested objects.</strong> A generic pass-through action silently
+lost the Notion <code>parent</code> field, so every &quot;successful&quot; write created a loose page in the
+workspace instead of a row on the board. Everything reported success. Use an explicit
+<code>bodyTemplate</code> per action.</p>
+<p><strong>A scheduled tick arrives with no input.</strong> Our first workflow read <code>ctx.input.candidatesDb</code>,
+which is fine when you call it by hand and fatal on a cron — it would have failed every
+five minutes forever while looking perfectly armed.</p>
+<hr>
+<h2>What&#39;s real, and what isn&#39;t</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Job post generation, 5 platform versions</td>
+<td>Working</td>
+</tr>
+<tr>
+<td>Tracked apply links per channel</td>
+<td>Working</td>
+</tr>
+<tr>
+<td>Notion hiring board</td>
+<td>Working, through Fastn</td>
+</tr>
+<tr>
+<td>CV parsing and scoring</td>
+<td>Working</td>
+</tr>
+<tr>
+<td>Candidate email, any address</td>
+<td>Working, verified domain</td>
+</tr>
+<tr>
+<td>Stage emails on a 5-minute schedule</td>
+<td>Working, on Fastn</td>
+</tr>
+<tr>
+<td>Screen capture for API-less channels</td>
+<td>Working</td>
+</tr>
+<tr>
+<td>Desktop companion: publish, forms, teaching</td>
+<td>Working</td>
+</tr>
+<tr>
+<td><strong>LinkedIn / X posting</strong></td>
+<td><strong>Not working</strong> — no Fastn connector, no developer tokens</td>
+</tr>
+<tr>
+<td><strong>Facebook / WhatsApp groups</strong></td>
+<td><strong>Impossible</strong> — the APIs don&#39;t exist</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>Running it yourself</h2>
+<pre><code class="language-bash">git clone https://github.com/ahmedmalik07/dexterity_fastn
+cd dexterity_fastn/app &amp;&amp; npm install &amp;&amp; cp .env.example .env.local
+</code></pre>
+<p>Add <code>GEMINI_API_KEY</code> and <code>FASTN_API_KEY</code>, then wire the services up:</p>
+<pre><code class="language-bash">node scripts/fastn.mjs connect notion &lt;notion-integration-token&gt;
+node scripts/fastn.mjs connect email  &lt;resend-api-key&gt;
+node scripts/fastn.mjs init-notion    &lt;notion-parent-page-id&gt;
+</code></pre>
+<p>Put the two printed database ids in <code>.env.local</code> and run <code>npm run dev</code>.</p>
+<p>The desktop companion:</p>
+<pre><code class="language-bash">cd ../dexterity &amp;&amp; npm install &amp;&amp; npm start
+</code></pre>
+<h3>Tests</h3>
+<pre><code>61 unit · companion · voice · coach · context · tasks · desktop · native · forms
+publish-ui · browser-form · hireloop bridge
+</code></pre>
+<p>All passing. The browser-form suite drives a real Chrome window; the publish-ui suite
+drives the real Electron app.</p>
+<hr>
+<p><strong>Team vibe</strong> — Madni Munnay, Ahmed Malik, Maimoona Islam</p>
+</main></body></html>
