@@ -62,6 +62,11 @@ most demos would hide.
 
 We could have faked those last two rows. We'd rather show you the table.
 
+Here is the row that "posted through Fastn" actually produced, in Notion — the job
+description, the must-haves, the tracked apply link, and `Status: Live`:
+
+![The job row created in Notion through Fastn](docs/images/notion-job-row.png)
+
 And that big QR code? That's the demo. Point a phone at it.
 
 ## 4. Applying, from a phone, in under a minute
@@ -99,6 +104,15 @@ Real output from the five test CVs against "Junior React Developer":
 | Scanned, image-only PDF | **0** | Maybe | *"CV could not be read, review manually"* |
 
 That last row matters. A scanned CV is a **human review flag**, never a silent rejection.
+
+And this is where they land — the hiring board in Notion, every row written through
+Fastn. The CV link, the AI's reasoning, the channel each candidate came from, and the
+stage they were last told about:
+
+![The candidate board in Notion](docs/images/notion-candidates-board.png)
+
+Read the `LastNotifiedStage` column: Offer, Interview, Shortlisted, Applied. That column
+is what stops a candidate being emailed the same news twice.
 
 ## 6. Which channel actually hires for you
 
