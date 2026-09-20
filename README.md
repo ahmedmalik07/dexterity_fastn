@@ -25,7 +25,10 @@ Every outbound action — the hiring board, the emails, the alerts — goes thro
 |---|---|
 | LinkedIn / X posting | Fastn has no connector for either, and we have no developer tokens for them. Both come back written and ready to paste. |
 | Facebook / WhatsApp groups | Meta closed the Groups API and WhatsApp has never had one. No tool can post there. |
-| The confirmation email | The Resend account is unverified, so it only reaches the account owner's address until a domain is added. |
+
+Email works fully: `wyibe.com` is a verified sending domain, so every applicant is
+emailed on arrival and again whenever their stage changes.
+
 
 We would rather show you this table than a demo that quietly fakes those steps.
 
@@ -105,7 +108,7 @@ Both custom connectors, and their actions, were created programmatically through
 | Channel | Status |
 |---|---|
 | Notion hiring board | Working — job rows and scored candidate cards |
-| Candidate email (Resend) | Working, but the Resend account is unverified, so it can **only send to the account owner's address** (`daniyalhero07@gmail.com`). Verify a domain at resend.com/domains before the demo, or judges get no email. |
+| Candidate email (Resend) | Working, sending from the verified domain `wyibe.com` to any applicant. |
 | Slack alerts | Authenticates, but the token is missing the `chat:write` scope |
 | LinkedIn / X posting | **Not posting.** No credentials, and Fastn has no LinkedIn or X connector — the custom ones need your own developer tokens. They fall back to copy-and-paste. |
 | Facebook / WhatsApp / Discord | Copy-and-paste by design; no API exists |
