@@ -81,6 +81,27 @@ That path is available two ways:
   bridge that sends what is on screen to HireLoop. Right-click the companion orb →
   **Send screen to HireLoop**.
 
+## It keeps running when nobody is watching
+
+The stage emails are not driven by this app at all. They run as a **Fastn workflow on
+Fastn's own infrastructure**, on a five-minute schedule:
+
+```
+hireloop-stage-notifier   wf_c55a11b8f31f   */5 * * * *   Asia/Karachi
+```
+
+Every five minutes it reads the Notion board through a Fastn connector, emails anyone
+whose `Stage` has moved, and writes the new stage back so nobody is emailed twice. No
+browser open, no server of ours running, no cron on a laptop.
+
+That is the part of Fastn worth the pitch: **it replaces the backend you would otherwise
+have to build, host and pay for.** Vercel's free plan refuses a per-minute cron; Fastn
+simply runs it.
+
+Verified: moving a candidate to Offer produced `{"sentCount":1,"sent":[{"name":"Ahmed
+Malik","stage":"Offer","ok":true}]}`, and the next run returned `{"sentCount":0}` — the
+recorded stage prevents a duplicate.
+
 ## How Fastn is used
 
 The app talks to **no third-party service directly**. Notion, Slack, email, LinkedIn and X

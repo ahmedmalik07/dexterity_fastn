@@ -51,3 +51,31 @@ The updated source companion test (including hands-free rearming, microphone rel
 `npm run dist` builds the Windows portable release in `release-v1.9`. Windows Code Integrity events 3033 and 3077 confirmed that the previous unsigned packaged executable failed this PC’s Enterprise signing requirements on 13 September 2026. Run `npm run dist:signed` with a configured signing certificate for a signed distribution. Source-launch success does not establish that the packaged release is permitted by Windows. Do not disable Windows security to run it.
 
 Earlier architecture/demo/gallery documents describe the 1.7 prototype and should be treated as historical where they conflict with this README.
+
+## State of this copy (hackathon fork)
+
+Every feature is reachable from the sidebar again. In 1.9 the nav whitelisted two
+entries, which left form filling, the task and teaching surface, the publish module,
+the playbook and the team page unreachable in the UI despite working in code.
+
+Fixed here:
+
+- **Nav** — only the legacy overview is hidden now; the companion home replaced it.
+- **Companion toggle** — turning the floating companion off used to be a one-way trip,
+  because the only toggle lived on the hidden overview page. The companion home has its
+  own toggle now.
+- **Sidebar** — with every entry visible it could outgrow a short window and push
+  Settings out of view. It scrolls.
+- **Recording cap** — 45s dropped to 15s. Talking without a clear pause held the
+  microphone open with nothing happening, which reads as the companion ignoring you.
+- **Orb menu** — `orb:menu` returned `Menu.popup()`, which cannot cross IPC, so
+  right-clicking the companion threw.
+- **Provider** — Gemini, with a model fallback chain. The bundled OpenRouter key is
+  free-tier and fails real requests in a way that looks like the app doing nothing.
+
+Added: `Publish a role` (the Fastn hiring module), `tests/publish-ui.cjs`,
+`tests/browser-form.cjs` (fills and submits a real form in Chrome) and
+`tests/hireloop.test.cjs`.
+
+All suites pass: 61 unit, companion, voice, coach, context, tasks, desktop, native,
+forms, publish-ui, browser-form and the hireloop bridge.
