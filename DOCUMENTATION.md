@@ -116,6 +116,15 @@ interview, offer, or a rejection written like a person wrote it.
 Each stage sends **exactly once**. The board records what was last sent, so dragging a
 card twice doesn't email twice.
 
+Here is a real inbox after a candidate moved through the pipeline — received, shortlisted,
+interview invitation:
+
+![Three stage emails in a real inbox](docs/images/emails-inbox.png)
+
+And one of them opened. No template variables left showing, no corporate filler:
+
+![The application received email](docs/images/email-received.png)
+
 ---
 
 ## The channels nobody can reach
@@ -224,6 +233,10 @@ This is the part that matters for the track, so here it is plainly.
 
 **The app holds no Notion token, no email key, no Slack token.** Every one of them lives
 in a Fastn connection. Our repo is public and leaks nothing.
+
+The Notion side of that is a single integration, granted read and write on one workspace:
+
+![The Notion integration the pipeline writes through](docs/images/notion-connection.png)
 
 Three connectors are in play:
 
